@@ -15,6 +15,8 @@ import {
     Principal,
     HasAnyAuthorityDirective,
 } from './';
+import {LoggerService} from './logger-service';
+import {BackButtonComponent} from './back-button/back-button.component';
 
 @NgModule({
     imports: [
@@ -23,7 +25,8 @@ import {
     ],
     declarations: [
         JhiLoginModalComponent,
-        HasAnyAuthorityDirective
+        HasAnyAuthorityDirective,
+        BackButtonComponent
     ],
     providers: [
         LoginService,
@@ -34,14 +37,16 @@ import {
         CSRFService,
         AuthServerProvider,
         UserService,
-        DatePipe
+        DatePipe,
+        LoggerService
     ],
     entryComponents: [JhiLoginModalComponent],
     exports: [
         MistralSharedCommonModule,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        BackButtonComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 

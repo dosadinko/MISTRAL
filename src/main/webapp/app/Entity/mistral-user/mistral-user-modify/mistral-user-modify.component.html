@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-12">
+        <jhi-back-button></jhi-back-button>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <h3 *ngIf="userId">Edit user {{userForDB.firstName}}&nbsp;{{userForDB.lastName}}</h3>
+        <h3 *ngIf="!userId">Add user</h3>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-control-label">First name</label>
+                <input required class="form-control" type="text" name="firstNameEdit" id="firstNameEdit" [(ngModel)]="userForDB.firstName">
+            </div>
+            <div class="col-md-6">
+                <label class="form-control-label">Last name:</label>
+                <input required class="form-control" type="text" name="lastNameEdit" id="lastNameEdit" [(ngModel)]="userForDB.lastName">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6" *ngIf="!userId">
+                <label class="form-control-label">Username:</label>
+                <input class="form-control" type="text" name="usernameEdit" id="usernameEdit" [(ngModel)]="userForDB.username">
+            </div>
+            <div class="col-md-6" *ngIf="!userId">
+                <label class="form-control-label">Password:</label>
+                <input required class="form-control" type="password" name="passwordEdit" id="passwordEdit" [(ngModel)]="passwordForDB">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label class="form-control-label">Email:</label>
+                <input class="form-control" type="text" name="emailEdit" id="emailEdit" [(ngModel)]="userForDB.email">
+            </div>
+            <div class="col-md-6">
+                <label class="form-control-label">Status:</label>
+                <select class="form-control" name="statusEdit" id="statusEdit" [(ngModel)]="userForDB.statusId">
+                    <option [value]="'ACTIVE'">
+                        Active
+                    </option>
+                    <option [value]="'INACTIVE'">
+                        Inactive
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 pull-right mt-5">
+            <button [disabled]="isLoading" (click)="onSaveClick()" class="btn btn-primary pull-right">
+                Save
+            </button>
+            <div *ngIf="errorMsg && errorMsg.length > 0" class="col-md-6 pull-right mt-5">
+                <p *ngFor="let item of errorMsg">{{item}}</p>
+            </div>
+        </div>
+    </div>
+</div>

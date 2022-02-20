@@ -1,0 +1,6 @@
+<label class="form-control-label">Status:</label>
+<select class="form-control" *ngIf="statusList.length > 0" (change)="statusChanged($event)">
+    <option *ngFor="let item of statusList" [value]="item.id">
+        {{item.name}}
+    </option>
+</select>

@@ -1,22 +1,10 @@
 import './vendor.ts';
 
-import { NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Ng2Webstorage, LocalStorageService, SessionStorageService  } from 'ngx-webstorage';
-import { JhiEventManager } from 'ng-jhipster';
-
-import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
-import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
-import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
-import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
+import { Ng2Webstorage  } from 'ngx-webstorage';
 import { MistralSharedModule, UserRouteAccessService } from './shared';
 import { MistralAppRoutingModule} from './app-routing.module';
 import { MistralHomeModule } from './home/home.module';
-import { MistralAdminModule } from './admin/admin.module';
-import { MistralAccountModule } from './account/account.module';
-import { MistralEntityModule } from './entities/entity.module';
-import { PaginationConfig } from './blocks/config/uib-pagination.config';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import {
     JhiMainComponent,
@@ -24,19 +12,30 @@ import {
     FooterComponent,
     ProfileService,
     PageRibbonComponent,
-    ErrorComponent
+    ErrorComponent,
 } from './layouts';
+import { MistralUserModifyComponent } from './Entity/mistral-user/mistral-user-modify/mistral-user-modify.component';
+import {ToastrModule} from 'ngx-toastr';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {ErrorHandlerInterceptor} from './Blocks/errorhandler.interceptor';
+import {NotificationInterceptor} from './Blocks/notification.interceptor';
+import {JhiEventManager} from 'ng-jhipster';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {Injector, NgModule} from '@angular/core';
 
 @NgModule({
     imports: [
         BrowserModule,
         MistralAppRoutingModule,
-        Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-'}),
+        Ng2Webstorage.forRoot({prefix: 'jhi', separator: '-'}),
         MistralSharedModule,
         MistralHomeModule,
-        MistralAdminModule,
-        MistralAccountModule,
-        MistralEntityModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-right',
+        }),
+        HttpClientModule,
+        BrowserAnimationsModule
+
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
@@ -44,29 +43,10 @@ import {
         NavbarComponent,
         ErrorComponent,
         PageRibbonComponent,
-        FooterComponent
+        FooterComponent,
+        MistralUserModifyComponent,
     ],
     providers: [
-        ProfileService,
-        PaginationConfig,
-        UserRouteAccessService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true,
-            deps: [
-                LocalStorageService,
-                SessionStorageService
-            ]
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthExpiredInterceptor,
-            multi: true,
-            deps: [
-                Injector
-            ]
-        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorHandlerInterceptor,
@@ -82,8 +62,10 @@ import {
             deps: [
                 Injector
             ]
-        }
+        },
+        ProfileService,
+        UserRouteAccessService,
     ],
-    bootstrap: [ JhiMainComponent ]
+    bootstrap: [JhiMainComponent]
 })
 export class MistralAppModule {}

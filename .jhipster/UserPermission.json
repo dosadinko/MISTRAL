@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "mistralUser",
+            "otherEntityName": "mistralUser",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "userPermission"
+        },
+        {
+            "relationshipName": "permission",
+            "otherEntityName": "permission",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "userPermission"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20220219004617",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "user_permission",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

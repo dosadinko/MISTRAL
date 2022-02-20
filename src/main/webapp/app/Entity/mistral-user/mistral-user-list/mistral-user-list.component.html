@@ -1,0 +1,51 @@
+<div *ngIf="mistralUsersList && mistralUsersList.length > 0">
+    <div class="table-responsive mt-3">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th jhiSortBy="firstName">First name <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="lastName">Last name <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="username">Username <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="email">Email <span class="fa fa-sort"></span></th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of mistralUsersList;">
+                <td>{{item?.firstName}}</td>
+                <td>{{item?.lastName}}</td>
+                <td>{{item?.username}}</td>
+                <td>{{item?.email}}</td>
+                <td>{{item?.statusId}}</td>
+                <td>
+                    <button type="submit" (click)="onDelete(item?.id)" class="btn btn-danger btn-sm pull-right ml-3">
+                        <span class="fa fa-fw fa-remove"></span>
+                        <span class="d-none d-md-inline" >Delete</span>
+                    </button>
+                    <button type="submit"
+                            routerLink="/modify-user/{{item?.id}}"
+                            class="btn btn-primary btn-sm pull-right ml-3">
+                        <span class="fa fa-fw fa-pencil"></span>
+                        <span class="d-none d-md-inline">Edit</span>
+                    </button>
+                    <button type="submit"
+                            routerLink="user-permissions/user/{{item?.id}}"
+                            class="btn btn-warning btn-sm pull-right">
+                        <span class="fa fa-fw fa-pencil"></span>
+                        <span class="d-none d-md-inline">Assign permissions</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="mistralUsersList && mistralUsersList.length">
+    <div class="row justify-content-center">
+        <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+    </div>
+    <div class="row justify-content-center">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
+</div>
